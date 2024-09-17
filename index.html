@@ -1,9 +1,184 @@
-<html>
-    <head>
-        <p class = text-center>Hello World! It's Maheen</p>
-        <p> Stay tuned for sneek peek into my tech life :)</p>
-    </head>
-    <body>
-        
-    </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="dist/output.css" rel="stylesheet">
+    <title>Maheen Masoud | Personal Website</title>
+    <style>
+        @keyframes blink {
+            0%, 100% {
+                opacity: 0.2;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+        .star {
+            animation: blink 3s infinite;
+        }
+        .star:nth-child(odd) {
+            animation-duration: 2s;
+        }
+        .star:nth-child(even) {
+            animation-duration: 4s;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 50;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-deep-purple bg-violet-700 to-purple-900 text-white font-sans">
+
+    <div class="absolute inset-0 bg-transparent pointer-events-none z-0">
+        <svg class="absolute inset-0 w-full h-full z-0 opacity-90">
+            <defs>
+                <radialGradient id="star-gradient" fx="50%" fy="50%" r="100%" spreadMethod="pad">
+                    <stop offset="0%" style="stop-color: white; stop-opacity: 1"></stop>
+                    <stop offset="100%" style="stop-color: white; stop-opacity: 0"></stop>
+                </radialGradient>
+            </defs>
+
+            <circle cx="10%" cy="25%" r="1.4" class="star" fill="url(#star-gradient)" />
+            <circle cx="20%" cy="35%" r="1.2" class="star" fill="url(#star-gradient)" />
+            <circle cx="30%" cy="45%" r="1.7" class="star" fill="url(#star-gradient)" />
+            <circle cx="40%" cy="55%" r="1.5" class="star" fill="url(#star-gradient)" />
+            <circle cx="50%" cy="65%" r="1" class="star" fill="url(#star-gradient)" />
+            <circle cx="60%" cy="75%" r="1.8" class="star" fill="url(#star-gradient)" />
+            <circle cx="70%" cy="85%" r="1.3" class="star" fill="url(#star-gradient)" />
+            <circle cx="80%" cy="15%" r="1.9" class="star" fill="url(#star-gradient)" />
+            <circle cx="90%" cy="25%" r="1.6" class="star" fill="url(#star-gradient)" />
+            <circle cx="25%" cy="15%" r="1.2" class="star" fill="url(#star-gradient)" />
+            <circle cx="35%" cy="25%" r="1.5" class="star" fill="url(#star-gradient)" />
+            <circle cx="45%" cy="35%" r="1.1" class="star" fill="url(#star-gradient)" />
+            <circle cx="55%" cy="45%" r="1.7" class="star" fill="url(#star-gradient)" />
+            <circle cx="65%" cy="55%" r="1.5" class="star" fill="url(#star-gradient)" />
+            <circle cx="75%" cy="65%" r="1.8" class="star" fill="url(#star-gradient)" />
+            <circle cx="85%" cy="75%" r="1.9" class="star" fill="url(#star-gradient)" />
+            <circle cx="95%" cy="85%" r="1.4" class="star" fill="url(#star-gradient)" />
+            <circle cx="5%" cy="95%" r="1.6" class="star" fill="url(#star-gradient)" />
+            <circle cx="15%" cy="85%" r="1.2" class="star" fill="url(#star-gradient)" />
+        </svg>
+    </div>
+
+    <div class="absolute inset-0 pointer-events-none z-0">
+        <div class="absolute top-0 left-0 w-96 h-96 bg-violet-950 rounded-full mix-blend-multiply opacity-10 filter blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-0 right-0 w-72 h-72 bg-purple-900 rounded-full mix-blend-multiply opacity-30 filter blur-3xl animate-pulse"></div>
+        <div class="absolute top-0 right-0 w-80 h-80 bg-fuchsia-900 rounded-full mix-blend-multiply opacity-30 filter blur-3xl animate-pulse"></div>
+    </div>
+
+    <header class="relative z-10 bg-transparent py-8">
+        <div class="container mx-auto text-center">
+            <h1 class="text-5xl font-extrabold tracking-widest">Maheen Masoud</h1>
+            <p class="text-lg mt-4 text-gray-300">Computer Science Student | Software Engineer</p>
+        </div>
+    </header>
+
+    <section class="relative z-10 py-16">
+        <div class="container mx-auto flex flex-col items-center">
+            <img src="https://avatars.githubusercontent.com/maheenmasoud" alt="Maheen Masoud" class="rounded-full w-64 h-64 mb-6 border-4 border-deep-purple shadow-lg shadow-deep-purple object-cover">
+            <h2 class="text-4xl font-bold mb-4">About Me</h2>
+            <p class="text-center max-w-2xl text-gray-300">I am a computer science student with a passion for software engineering, AI, and developing impactful solutions.</p>
+            <div class="mt-6">
+                <a href="https://www.linkedin.com/in/maheen-masoud-b63360209/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://www.vectorlogo.zone/logos/linkedin/linkedin-icon.svg" alt="LinkedIn" class="w-10 h-10">
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="relative z-10 py-16 bg-light-purple">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold text-white mb-8">Previous Experience</h2>
+            <div class="space-y-4">
+                <div class="text-xl text-gray-300">Machine Learning Software Engineer Intern @ Asurion</div>
+                <div class="text-xl text-gray-300">Software Engineer Intern @ FairMarkit</div>
+                <div class="text-xl text-gray-300">Research Fellow (AI, Graph Theory) @ Hamilton College</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="relative z-10 py-16 bg-deep-purple">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold text-white mb-8">Explore More...</h2>
+            <div class="flex justify-center space-x-8">
+                <a href="#" class="bg-violet-900 hover:bg-violet-950 text-white py-3 px-8 rounded-lg shadow-lg transition-transform transform hover:scale-105" id="resume-button">Resume</a>
+                <a href="projects.html" class="bg-purple-900 hover:bg-purple-950 text-white py-3 px-8 rounded-lg shadow-lg transition-transform transform hover:scale-105">My Projects</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="relative z-10 bg-black text-white py-6">
+        <div class="container mx-auto text-center">
+            <p>1 + 1 = 10</p>
+        </div>
+    </footer>
+
+    <div id="resumeModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 class="text-2xl font-bold mb-4">My Resume</h2>
+            <iframe src="./resume.pdf" width="100%" height="600px"></iframe>
+            <div class="text-center mt-6">
+                <a href="./resume.pdf" download class="bg-purple-900 hover:bg-purple-700 text-white py-3 px-8 rounded-lg shadow-lg transition-transform transform hover:scale-105">Download Resume</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var modal = document.getElementById("resumeModal");
+
+        var resumeBtn = document.getElementById("resume-button");
+
+        var closeBtn = document.getElementsByClassName("close")[0];
+
+        resumeBtn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
 </html>
