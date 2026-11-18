@@ -2430,8 +2430,8 @@
   const PROJECTS = [
     { name: "Strand", when: "2026 · Prototype", c: "#b5647a", device: "phone", demo: "strand",
       tagline: "Find a stylist who has already done your look, on hair like yours.",
-      full: "Find a stylist who has already done your look, on hair like yours. Clients build a hair profile and are matched to stylists by portfolio work tagged with the same hair type. Consults turn into bookings, and after each visit the stylist sends a report that keeps the client's hair history up to date.",
-      tags: ["React", "TypeScript", "Vite"] },
+      full: "Find a stylist who has already done your look, on hair like yours. Clients build a hair profile and are matched to stylists by portfolio work tagged with the same hair type. Consults turn into bookings, and after each visit the stylist sends a report that keeps the client's hair history up to date. The backend runs on Supabase: a Postgres schema with row-level security, so a stylist can see a client's hair profile only after a consult or booking, loses it the moment the client revokes access, and sees hair history only with the client's consent. Database triggers decide what each side can change, so only the stylist can reply to a consult and only the client can confirm a visit report.",
+      tags: ["React", "TypeScript", "Supabase", "PostgreSQL", "Row-level security"] },
     { name: "LoopTrack", when: "Computer vision", c: "#3a7a7a", device: "laptop", demo: "twirl",
       tagline: "A webcam that keeps count of hair twirls and sends a nudge. This was a fun project made for a friend.",
       full: "A fun computer vision project that keeps track of someone twirling their hair. A webcam spots each twirl, sends a playful nudge, and a local dashboard shows the stats. It all runs on the laptop, and no video is ever saved.",
