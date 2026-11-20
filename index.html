@@ -741,6 +741,14 @@
     .sc-stage { grid-template-columns: 1fr; min-height: 0; padding: 1rem; gap: 1.2rem; }
     .dev-phone { width: 200px; height: 390px; }
   }
+  /* demo: Seasons */
+  .dev-term .screen.d-seasons-host { height: auto; padding: .6rem .7rem .8rem; }
+  .d-seasons img { display: block; width: 100%; height: auto; border-radius: 4px; background: #1e1d29; }
+  .dse-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; margin-top: .6rem; }
+  .dse-tabs button { font: .7rem ui-monospace, Menlo, monospace; color: #9a93a6; background: #2c2a3a; border: 1px solid transparent; border-radius: 999px; padding: .2rem .6rem; cursor: pointer; transition: all .3s; }
+  .dse-tabs button:hover { color: #e9e3f2; }
+  .dse-tabs button[aria-pressed="true"] { color: #fffaf0; background: #c0652c; }
+
   /* demo: Strand */
   .d-strand { position: absolute; inset: 0; padding: 14px; font-size: 11px; color: #2a2733; }
   .ds-profile { display: inline-flex; gap: 6px; align-items: center; padding: 5px 10px; border-radius: 999px; background: #fff; box-shadow: 0 2px 6px rgba(0, 0, 0, .08); }
@@ -2385,6 +2393,27 @@
 
   // ---------- projects: a tiny demo of what each one does ----------
   const DEMOS = {
+    seasons(el) {
+      // real captures of the terminal, one animated loop per season
+      const S = [["spring", "✿"], ["summer", "✺"], ["fall", "❦"], ["winter", "❆"]];
+      const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      el.classList.add("d-seasons-host");
+      el.innerHTML = `<div class="d-seasons"><img alt="" width="864" height="540">
+        <div class="dse-tabs">${S.map(([s, ic]) => `<button type="button" data-s="${s}">${ic} ${s}</button>`).join("")}</div></div>`;
+      const img = el.querySelector("img"), tabs = [...el.querySelectorAll(".dse-tabs button")];
+      S.forEach(([s]) => { new Image().src = `images/seasons/seasons-${s}.${still ? "png" : "webp"}`; });
+      let cur = 0, t = 0;
+      const show = i => {
+        cur = (i + S.length) % S.length; const s = S[cur][0];
+        img.src = `images/seasons/seasons-${s}.${still ? "png" : "webp"}`;
+        img.alt = `The seasons terminal scene in ${s}`;
+        tabs.forEach((b, k) => b.setAttribute("aria-pressed", k === cur));
+      };
+      const loop = () => { clearInterval(t); if (!still) t = setInterval(() => show(cur + 1), 4800); };
+      tabs.forEach((b, k) => b.addEventListener("click", () => { show(k); loop(); }));
+      show(0);
+      return { play: loop, pause() { clearInterval(t); } };
+    },
     strand(el) {
       el.innerHTML = `<div class="d-strand"><div class="ds-profile">Hair profile <b>3B curls</b></div>
         <div class="ds-list"><div class="ds-card"><i></i><span>Imani · stylist</span><b>3B ✓</b></div>
@@ -2428,6 +2457,11 @@
     },
   };
   const PROJECTS = [
+    { name: "Seasons", when: "2026 · Terminal art", c: "#c0652c", device: "terminal", demo: "seasons",
+      term: { title: "zsh — seasons", cmd: "seasons" },
+      tagline: "A cozy little world that lives in my terminal and changes with the seasons.",
+      full: "A cozy animated scene that lives in my terminal and follows the real calendar and clock. In autumn, leaves tumble off the tree, pile up on the ground and get swept back up by gusts while geese fly south. Winter brings drifting snow, a snowman, string lights and the northern lights. Spring has blossoms, a hopping bunny and rain showers that leave a rainbow behind. Summer has sunflowers with bees, a sleeping cat and fireflies after dark. The sky turns golden at sunset and the cabin window glows at night. You can switch seasons, call up weather and steer the wind from the keyboard, and a still postcard greets me every time I open a new terminal. It's one Python file with no dependencies, drawn in 24-bit color with half-block characters for smooth hills and clouds.",
+      tags: ["Python", "ANSI true color", "Particle simulation", "Zero dependencies"] },
     { name: "Strand", when: "2026 · Prototype", c: "#b5647a", device: "phone", demo: "strand",
       tagline: "Find a stylist who has already done your look, on hair like yours.",
       full: "Find a stylist who has already done your look, on hair like yours. Clients build a hair profile and are matched to stylists by portfolio work tagged with the same hair type. Consults turn into bookings, and after each visit the stylist sends a report that keeps the client's hair history up to date. The backend runs on Supabase: a Postgres schema with row-level security, so a stylist can see a client's hair profile only after a consult or booking, loses it the moment the client revokes access, and sees hair history only with the client's consent. Database triggers decide what each side can change, so only the stylist can reply to a consult and only the client can confirm a visit report.",
@@ -2439,13 +2473,14 @@
     { name: "English → French", when: "NLP · Translation model", c: "#3a5f8a", device: "terminal", demo: "translate",
       tagline: "A transformer that translates English to French, built from scratch.",
       full: "A transformer translation model built from scratch in a small group, with its own tokenizers, a training pipeline and an inference script.",
-      tags: ["PyTorch Lightning", "Transformers", "SentencePiece"], link: "https://github.com/maheenmasoud/TranslationModel" },
+      tags: ["PyTorch Lightning", "Transformers", "SentencePiece"], link: "https://github.com/maheenmasoud/TranslationModel",
+      term: { title: "zsh — translation-model", cmd: `python translate.py "The cat sleeps in the sun."`, dir: "~/translation-model" } },
   ];
   const DEVICES = {
     phone: () => `<div class="dev-phone"><div class="screen"></div><div class="ph-nav" aria-hidden="true"><i></i><i></i><i></i><i></i></div></div>`,
     laptop: () => `<div class="dev-laptop"><div class="lid"><div class="screen"></div></div><div class="base"></div></div>`,
-    terminal: () => `<div class="dev-term"><div class="tbar"><i></i><i></i><i></i><span>zsh — translation-model</span></div>
-      <div class="prompt"><b>~/translation-model $</b> python translate.py "The cat sleeps in the sun."</div><div class="screen"></div></div>`,
+    terminal: pr => `<div class="dev-term"><div class="tbar"><i></i><i></i><i></i><span>${pr.term.title}</span></div>
+      <div class="prompt"><b>${pr.term.dir || "~"} $</b> ${pr.term.cmd}</div><div class="screen"></div></div>`,
   };
   const showcase = document.querySelector(".showcase"), scTabs = showcase.querySelector(".sc-tabs");
   const scDevice = showcase.querySelector(".sc-device"), scInfo = showcase.querySelector(".sc-info"), scCount = showcase.querySelector(".sc-count");
@@ -2462,7 +2497,7 @@
     if (scDemo) scDemo.pause();
     showcase.style.setProperty("--pc", pr.c);
     scButtons.forEach((b, k) => b.setAttribute("aria-selected", k === i));
-    scDevice.innerHTML = DEVICES[pr.device]();
+    scDevice.innerHTML = DEVICES[pr.device](pr);
     scDemo = DEMOS[pr.demo](scDevice.querySelector(".screen"));
     scInfo.innerHTML = `<div class="when">${pr.when}</div><h3>${pr.name}</h3><p class="sc-tag">${pr.tagline}</p>
       <div class="tags">${pr.tags.map(t => `<span>${t}</span>`).join("")}</div><button type="button" class="sc-more">Read the full story →</button>`;
